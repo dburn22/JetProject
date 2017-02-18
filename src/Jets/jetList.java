@@ -1,52 +1,87 @@
 package Jets;
 
+import java.util.Scanner;
+
 public class jetList {
-	String[] jetlist = new String[5];
+	public static int i = 0;
+	Jet[] jetlist = new Jet[8];
 
-	jetList() {
-		fastestJet();
+	public void loadJets() {
 
-		jetlist[0] = "Stealth Bomber-\n" + "Price: 2B" + "Speed: 628 MPH" + "Range: 6,897m";
-		jetlist[1] = "F-18-\n" + "Price: 98 Million" + "Speed: 1,190 MPH" + "Range: 2,069m";
-		jetlist[2] = "F-35-\n" + "Price: 6.1B" + "Speed: 1,119 MPH" + "Range: 1,379m";
-		jetlist[3] = "Airforce One (737)-" + "Price: 4B" + "Speed: 631 MPH" + "Range: 8,077m";
-		jetlist[4] = "A10 Warthog" + "Price: 18 Million" + "Speed: 439 MPH" + "Range: 800m";
+		jetlist[0] = new Jet("Stealth Bomber", 628, 6897, 2);
+		jetlist[1] = new Jet("F-18", 1190, 2069, 98);
+		jetlist[2] = new Jet("F-35", 1119, 1379, 6.1);
+		jetlist[3] = new Jet("Airforce One (737)", 631, 8077, 4);
+		jetlist[4] = new Jet("A10 Warthog", 439, 800, 18);
 
 	}
 
-	public String[] getJetlist() {
+	public void add() {
+		for (int i = 0; i < jetlist.length; i++) {
+			if (jetlist[i] == null) {
+				Scanner kb = new Scanner(System.in);
+
+				System.out.println("What jet would you like to add to our battalion?");
+				String newJet = kb.next();
+
+				System.out.println("What is the Jet speed?");
+				double speed = kb.nextDouble();
+
+				System.out.println("What is the Jet Range?");
+				double range = kb.nextDouble();
+
+				System.out.println("What does the Jet cost?");
+				double cost = kb.nextDouble();
+
+				System.out.println("You have sucessfully added the to the battallion");
+
+				jetlist[i] = new Jet(newJet, speed, range, cost);
+				break;
+			}
+		}
+
+	}
+
+	public Jet[] getJetlist() {
 		return jetlist;
 	}
 
-	public void setJetlist(String[] jetlist) {
+	public void setJetlist(Jet[] jetlist) {
 		this.jetlist = jetlist;
 	}
 
-	public String[] fastestJet() {
-		String[] fastest = new String[5];
+	public void fastestJet() {
+		float largestValue = 0f;
+		int largest = 0;
 
-		fastest[0] = "F-18-\n Speed: 1,190 MPH";
+		for (int i = 0; i < jetlist.length; i++) {
+			if (jetlist[i] != null) {
 
-		fastest[1] = "F-35-\n Speed: 1,119 MPH";
+				if (jetlist[i].getSpeed() > largestValue) {
+					largestValue = (float) jetlist[i].getSpeed();
+					jetlist[largest] = jetlist[i];
 
-		fastest[2] = "Airforce One (737)- Speed: 631 MPH";
-		fastest[3] = "Stealth Bomber-\n Speed: 628 MPH";
+				}
 
-		fastest[4] = "A10 Warthog Speed: 439 MPH";
-
-		return fastest;
-
+			}
+		}
+		System.out.println(jetlist[largest]);
 	}
 
-	public String[] longestJet() {
-		String[] longest = new String[5];
+	public void longestJet() {
+		float largestValue = 0f;
+		int longest = 0;
 
-		longest[0] = "Airforce One (737)-Range: 8,077m";
-		longest[1] = "Stealth Bomber-\nRange: 6,897m";
-		longest[2] = "F-18-\n Range: 2,069m";
-		longest[3] = "F-35 -Range: 1,379m";
-		longest[4] = "A10 Warthog Range: 800m";
-		return longest;
+		for (int i = 0; i < jetlist.length; i++) {
+			if (jetlist[i] != null) {
 
+				if (jetlist[i].getRange() > largestValue) {
+					largestValue = (float) jetlist[i].getRange();
+					jetlist[longest] = jetlist[i];
+
+				}
+			}
+		}
+		System.out.println(jetlist[longest]);
 	}
 }
